@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f471ae69d6a115e459d816def99ede6f, type: 3}
+  m_Name: Puzzles
+  m_EditorClassIdentifier: 
+  timeInSeconds: 0
+  Colums: 12
+  Rows: 12
+  Board:
+  - Size: 12
+    Row:
+    - B
+    - S
+    - U
+    - M
+    - M
+    - E
+    - R
+    - J
+    - R
+    - Z
+    - A
+    - K
+  - Size: 12
+    Row:
+    - Y
+    - H
+    - B
+    - Y
+    - J
+    - J
+    - R
+    - Q
+    - O
+    - A
+    - D
+    - D
+  - Size: 12
+    Row:
+    - U
+    - H
+    - E
+    - N
+    - Q
+    - H
+    - A
+    - B
+    - V
+    - D
+    - J
+    - C
+  - Size: 12
+    Row:
+    - Z
+    - A
+    - T
+    - R
+    - F
+    - X
+    - E
+    - N
+    - O
+    - W
+    - Y
+    - K
+  - Size: 12
+    Row:
+    - Q
+    - Q
+    - E
+    - G
+    - X
+    - B
+    - Y
+    - P
+    - A
+    - I
+    - Q
+    - U
+  - Size: 12
+    Row:
+    - K
+    - Y
+    - S
+    - U
+    - C
+    - E
+    - R
+    - F
+    - X
+    - N
+    - P
+    - X
+  - Size: 12
+    Row:
+    - Z
+    - K
+    - R
+    - E
+    - F
+    - R
+    - Y
+    - D
+    - F
+    - T
+    - K
+    - C
+  - Size: 12
+    Row:
+    - X
+    - S
+    - W
+    - I
+    - A
+    - O
+    - O
+    - Y
+    - G
+    - E
+    - O
+    - I
+  - Size: 12
+    Row:
+    - D
+    - I
+    - A
+    - M
+    - S
+    - I
+    - E
+    - A
+    - S
+    - W
+    - N
+    - S
+  - Size: 12
+    Row:
+    - U
+    - U
+    - G
+    - P
+    - Q
+    - C
+    - O
+    - T
+    - Z
+    - L
+    - Z
+    - C
+  - Size: 12
+    Row:
+    - D
+    - G
+    - M
+    - N
+    - A
+    - B
+    - Q
+    - P
+    - F
+    - U
+    - W
+    - H
+  - Size: 12
+    Row:
+    - Y
+    - C
+    - Y
+    - C
+    - D
+    - X
+    - A
+    - Q
+    - M
+    - T
+    - O
+    - T
+  SearchingWords:
+  - word: SUMMER
+  - word: WINTE
