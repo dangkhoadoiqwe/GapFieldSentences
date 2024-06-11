@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class WordChecker : MonoBehaviour
 {
     private string _word;
-
+    public GameLevelData _level;
     public GameData currentData;
     private int _assignedPoints = 0;
     private int _completedWords = 0;
@@ -22,12 +22,14 @@ public class WordChecker : MonoBehaviour
     {
         GameEvent.OnCheckSquare += SquareSelected;
         GameEvent.OnClearSelection += ClearSelection;
+        GameEvent.OnLoadNextLevel += LoadNetGameLevel;
     }
 
     private void OnDisable()
     {
         GameEvent.OnCheckSquare -= SquareSelected;
         GameEvent.OnClearSelection -= ClearSelection;
+        GameEvent.OnLoadNextLevel -= LoadNetGameLevel;
     }
 
     void Start()
@@ -35,9 +37,12 @@ public class WordChecker : MonoBehaviour
         _assignedPoints = 0;
         _completedWords = 0;
 
-       
-    }
 
+    }
+    private void LoadNetGameLevel()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
     private void Update()
     {
         if (_assignedPoints > 0 && Application.isEditor)
@@ -92,19 +97,15 @@ public class WordChecker : MonoBehaviour
 
     private void CheckWord()
     {
-        if (currentData == null || currentData.selectboardData == null || currentData.selectboardData.SearchingWords == null)
-        {
-            Debug.LogError("currentData or its members are not properly initialized.");
-            return;
-        }
-
         foreach (var searchingWord in currentData.selectboardData.SearchingWords)
         {
             if (_word == searchingWord.word)
             {
                 GameEvent.CorrectWordMethod(_word, _correctSquareList);
+                _completedWords++;
                 _word = string.Empty;
-                _correctSquareList.Clear(); 
+                _correctSquareList.Clear();
+                CheckBoardCompleted();
                 return;
             }
         }
@@ -172,5 +173,69 @@ public class WordChecker : MonoBehaviour
         _assignedPoints = 0;
         _correctSquareList.Clear();
         _word = string.Empty;
+    }
+
+    private void CheckBoardCompleted()
+    {
+        if (currentData.selectboardData.SearchingWords.Count == _completedWords)
+        {
+            var categoryName = currentData.selectCategoryName;
+            var currentBoardIndex = DataSaver.ReadCatologryIndexValue(categoryName);
+            var nextBoardIndex = -1;
+            var currentCategoryIndex = 0;
+            bool readNextLevelName = false;
+            bool loadNextCategory = false;
+
+            for (int index = 0; index < _level.data.Count; index++)
+            {
+                if (readNextLevelName)
+                {
+                    nextBoardIndex = DataSaver.ReadCatologryIndexValue(_level.data[0].categoryName);
+                    readNextLevelName = false;
+                }
+                if (_level.data[index].categoryName == categoryName)
+                {
+                    readNextLevelName = true;
+                    currentCategoryIndex = index;
+                }
+            }
+
+            var currentLevelSize = _level.data[currentCategoryIndex].boardData.Count;
+
+            if (currentBoardIndex < currentLevelSize - 1)
+            {
+                currentBoardIndex += 1;
+            }
+            DataSaver.SaveCatologryData(categoryName, currentBoardIndex);
+
+            if (currentBoardIndex >= currentLevelSize)
+            {
+                currentCategoryIndex++;
+                if (currentCategoryIndex < _level.data.Count)
+                {
+                    categoryName = _level.data[currentCategoryIndex].categoryName;
+                    currentBoardIndex = 0;
+                    loadNextCategory = true;
+                    if (nextBoardIndex <= 0)
+                    {
+                        DataSaver.SaveCatologryData(categoryName, currentBoardIndex);
+                    }
+                }
+                else
+                {
+                    SceneManager.LoadScene("SelectCategory");
+                    return;
+                }
+            }
+
+            if (loadNextCategory)
+            {
+                GameEvent.UnlockNextCategoryMethod();
+            }
+            else
+            {
+                GameEvent.BoardCompleteMethod();
+            }
+        }
     }
 }

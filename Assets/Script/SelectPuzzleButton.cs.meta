@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 45496ca6105e91646b45f9bebe49ac20
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - gameData: {instanceID: 0}
+  - levelData: {instanceID: 0}
+  - categoryText: {instanceID: 0}
+  - progressBarFilling: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

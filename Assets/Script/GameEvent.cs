@@ -72,4 +72,34 @@ public static class GameEvent
         }
     }
     //******************************************************
+    public delegate void BoardComplete();
+    public static event BoardComplete OnBoardComplete;
+    public static void BoardCompleteMethod()
+    {
+        if (OnBoardComplete != null)
+        {
+            OnBoardComplete();
+        }
+    }
+    //******************************************************
+    public delegate void UnlockNextCategory();
+    public static event UnlockNextCategory OnUnlockNextCategory;
+    public static void UnlockNextCategoryMethod()
+    {
+        if (OnUnlockNextCategory != null)
+        {
+            OnUnlockNextCategory();
+        }
+    }
+    //******************************************************
+    public delegate void LoadNextLevel();
+    public static event LoadNextLevel OnLoadNextLevel;
+    public static void LoadNextLevelMethod()
+    {
+        if (OnLoadNextLevel != null)
+        {
+            OnLoadNextLevel();
+        }
+    }
+     
 }
